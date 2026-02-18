@@ -74,7 +74,7 @@ function Navbar() {
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <span className="text-sm font-bold text-foreground tracking-tight">
-          Floxhub <span className="text-secondary">Tecnologia</span>
+          Raio X <span className="text-secondary">de Oportunidades Perdidas</span>
         </span>
         <CtaButton href="#formulario" size="sm">
           Solicitar análise
