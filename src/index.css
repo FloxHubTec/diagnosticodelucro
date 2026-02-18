@@ -100,6 +100,30 @@
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum";
   }
+
+  /* Typography scale */
+  .heading-xl {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .heading-lg {
+    font-size: clamp(1.375rem, 3vw, 2.125rem);
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .body-lg {
+    font-size: clamp(1rem, 1.25vw, 1.175rem);
+    line-height: 1.7;
+  }
+
+  .prose-max {
+    max-width: 720px;
+  }
 }
 
 @layer base {
