@@ -24,9 +24,7 @@ import {
 // ─── Shared primitives ────────────────────────────────────────────────────────
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="corporate-label mb-4">{children}</p>
-  );
+  return <p className="corporate-label mb-4">{children}</p>;
 }
 
 function Divider() {
@@ -46,16 +44,16 @@ function HeroSection() {
               Diagnóstico Estratégico B2B
             </p>
             <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-8">
-              Sua empresa pode estar perdendo até{" "}
-              <span className="text-secondary">30% das oportunidades</span> de venda — sem perceber.
+              Sua empresa pode estar perdendo até <span className="text-secondary">30% das oportunidades</span> de venda
+              sem perceber.
             </h1>
             <p className="text-base lg:text-lg text-primary-foreground/70 leading-relaxed mb-4">
               Empresas B2B raramente deixam de vender por falta de cliente.
             </p>
             <p className="text-base lg:text-lg text-primary-foreground/70 leading-relaxed mb-10">
               Elas deixam de vender porque existem{" "}
-              <span className="text-primary-foreground font-medium">falhas invisíveis</span>{" "}
-              dentro do processo comercial.
+              <span className="text-primary-foreground font-medium">falhas invisíveis</span> dentro do processo
+              comercial.
             </p>
             <a
               href="#cta"
@@ -83,9 +81,7 @@ function BeliefBreakSection() {
     <section className="max-w-6xl mx-auto px-6 py-20">
       <div className="max-w-3xl mx-auto text-center mb-14">
         <SectionLabel>Análise de Causa</SectionLabel>
-        <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
-          O problema não é esforço comercial.
-        </h2>
+        <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">O problema não é esforço comercial.</h2>
         <p className="text-lg text-muted-foreground leading-relaxed">
           Na maioria das operações, o time trabalha, os leads chegam e as propostas são enviadas.
           <br className="hidden md:block" />
@@ -115,17 +111,12 @@ function AlertSignalsSection() {
       <div className="max-w-6xl mx-auto px-6 py-20">
         <div className="max-w-2xl mx-auto text-center mb-12">
           <SectionLabel>Sinais de Alerta</SectionLabel>
-          <h2 className="text-3xl font-bold text-foreground">
-            Sua operação apresenta estes sintomas?
-          </h2>
+          <h2 className="text-3xl font-bold text-foreground">Sua operação apresenta estes sintomas?</h2>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto mb-10">
           {alerts.map(({ icon: Icon, text }) => (
-            <div
-              key={text}
-              className="flex items-center gap-4 bg-background border border-border rounded-lg px-5 py-4"
-            >
+            <div key={text} className="flex items-center gap-4 bg-background border border-border rounded-lg px-5 py-4">
               <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-md bg-accent border border-border">
                 <Icon size={15} className="text-secondary" />
               </div>
@@ -160,8 +151,8 @@ function ServicePresentationSection() {
           O que é o Raio X de Oportunidades Perdidas
         </h2>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          É uma <strong className="text-foreground">análise estratégica completa</strong> da operação comercial
-          que identifica exatamente onde sua empresa perde vendas e{" "}
+          É uma <strong className="text-foreground">análise estratégica completa</strong> da operação comercial que
+          identifica exatamente onde sua empresa perde vendas e{" "}
           <strong className="text-foreground">estrutura o processo para corrigir isso</strong>.
         </p>
       </div>
@@ -173,10 +164,26 @@ function ServicePresentationSection() {
 
 const identifications = [
   { icon: Map, title: "Mapa real do funil", desc: "Visão precisa de onde cada lead está e o que acontece com ele." },
-  { icon: Crosshair, title: "Pontos de perda", desc: "Identificação exata dos momentos em que oportunidades são desperdiçadas." },
-  { icon: BarChart2, title: "Gargalos operacionais", desc: "Processos que travam a venda antes de chegarem ao decisor." },
-  { icon: RefreshCw, title: "Falhas de acompanhamento", desc: "Oportunidades que somem por ausência de follow-up estruturado." },
-  { icon: Layers, title: "Oportunidades desperdiçadas", desc: "Leads que poderiam ter fechado mas saíram sem resposta." },
+  {
+    icon: Crosshair,
+    title: "Pontos de perda",
+    desc: "Identificação exata dos momentos em que oportunidades são desperdiçadas.",
+  },
+  {
+    icon: BarChart2,
+    title: "Gargalos operacionais",
+    desc: "Processos que travam a venda antes de chegarem ao decisor.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Falhas de acompanhamento",
+    desc: "Oportunidades que somem por ausência de follow-up estruturado.",
+  },
+  {
+    icon: Layers,
+    title: "Oportunidades desperdiçadas",
+    desc: "Leads que poderiam ter fechado mas saíram sem resposta.",
+  },
   { icon: Activity, title: "Performance real", desc: "Dados reais versus percepção interna da equipe comercial." },
 ];
 
@@ -186,9 +193,7 @@ function IdentificationsSection() {
       <div className="max-w-6xl mx-auto px-6 py-20">
         <div className="max-w-2xl mx-auto text-center mb-12">
           <SectionLabel>O que Identificamos</SectionLabel>
-          <h2 className="text-3xl font-bold text-foreground">
-            Análise com seis dimensões críticas
-          </h2>
+          <h2 className="text-3xl font-bold text-foreground">Análise com seis dimensões críticas</h2>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -270,7 +275,8 @@ function MethodologySection() {
 
       <div className="max-w-2xl mx-auto text-center">
         <p className="text-sm text-muted-foreground leading-relaxed border border-border rounded-lg px-6 py-4 bg-accent">
-          Cada etapa foi desenhada para preparar e potencializar a próxima — garantindo que o diagnóstico gere ação real e não apenas relatório.
+          Cada etapa foi desenhada para preparar e potencializar a próxima — garantindo que o diagnóstico gere ação real
+          e não apenas relatório.
         </p>
       </div>
     </section>
@@ -347,8 +353,7 @@ function ResultSection() {
         <SectionLabel>O que Você Ganha</SectionLabel>
         <h2 className="text-3xl font-bold text-foreground mb-4">O que você ganha com isso</h2>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Você não compra análise.{" "}
-          <strong className="text-foreground">Compra controle da operação comercial.</strong>
+          Você não compra análise. <strong className="text-foreground">Compra controle da operação comercial.</strong>
         </p>
       </div>
       <GrowthChart />
@@ -381,7 +386,10 @@ function ForWhomSection() {
             </div>
             <div className="space-y-3">
               {forWhom.map((item, i) => (
-                <div key={item} className="flex items-center gap-4 bg-background border border-border rounded-lg px-5 py-3.5">
+                <div
+                  key={item}
+                  className="flex items-center gap-4 bg-background border border-border rounded-lg px-5 py-3.5"
+                >
                   <span className="w-6 h-6 rounded-full bg-secondary text-secondary-foreground text-xs font-bold flex items-center justify-center flex-shrink-0">
                     {i + 1}
                   </span>
