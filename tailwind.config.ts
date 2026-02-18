@@ -13,7 +13,7 @@ export default {
       },
     },
     extend: {
-      colors: {
+        colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -26,6 +26,10 @@ export default {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        interactive: {
+          DEFAULT: "hsl(var(--interactive))",
+          foreground: "hsl(var(--interactive-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
