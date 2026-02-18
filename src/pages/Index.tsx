@@ -98,7 +98,7 @@ function HeroSection() {
             </p>
             <h1 className="heading-xl text-primary-foreground mb-6">
               Sua empresa pode estar perdendo até{" "}
-              <span className="text-secondary">30% das oportunidades</span> de venda — sem perceber.
+              <span className="text-secondary">30% das oportunidades</span> de venda sem perceber.
             </h1>
             <p className="body-lg text-primary-foreground/65 prose-max mb-10">
               Não é falta de cliente. É falha de processo: atendimento, acompanhamento, funil e visão de números.
