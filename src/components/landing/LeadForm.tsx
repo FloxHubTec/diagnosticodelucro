@@ -2,14 +2,22 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChevronRight, CheckCircle } from "lucide-react";
+import { ChevronRight, CheckCircle, XCircle } from "lucide-react";
 import { z } from "zod";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 const schema = z.object({
   nome: z.string().trim().min(2, "Nome obrigatório"),
   empresa: z.string().trim().min(2, "Empresa obrigatória"),
   cargo: z.string().trim().min(2, "Cargo obrigatório"),
   site: z.string().trim().optional(),
+  email: z.string().trim().email("E-mail inválido"),
   funcionarios: z.string().min(1, "Selecione uma faixa"),
   faturamento: z.string().min(1, "Selecione uma faixa"),
   timeComercial: z.string().min(1, "Selecione uma opção"),
@@ -24,6 +32,7 @@ const initialState: FormData = {
   empresa: "",
   cargo: "",
   site: "",
+  email: "",
   funcionarios: "",
   faturamento: "",
   timeComercial: "",
@@ -31,18 +40,42 @@ const initialState: FormData = {
   whatsapp: "",
 };
 
+const faturamentoOptions = [
+  "Até R$100 mil",
+  "R$100 mil – R$300 mil",
+  "R$300 mil – R$500 mil",
+  "R$500 mil – R$1 milhão",
+  "R$1 milhão – R$3 milhões",
+  "R$3 milhões – R$10 milhões",
+  "Acima de R$10 milhões",
+];
+
 export function LeadForm() {
   const [form, setForm] = useState<FormData>(initialState);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [showIneligibleDialog, setShowIneligibleDialog] = useState(false);
 
   function handleChange(field: keyof FormData, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
   }
 
+  function handleTimeComercialSelect(opt: string) {
+    handleChange("timeComercial", opt);
+    if (opt === "Não") {
+      setShowIneligibleDialog(true);
+    }
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (form.timeComercial === "Não") {
+      setShowIneligibleDialog(true);
+      return;
+    }
+
     const result = schema.safeParse(form);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof FormData, string>> = {};
@@ -81,123 +114,165 @@ export function LeadForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-5">
-      {/* Nome + Empresa */}
-      <div className="grid sm:grid-cols-2 gap-5">
-        <Field label="Nome" error={errors.nome}>
-          <Input
-            placeholder="Seu nome completo"
-            value={form.nome}
-            onChange={(e) => handleChange("nome", e.target.value)}
-          />
-        </Field>
-        <Field label="Empresa" error={errors.empresa}>
-          <Input
-            placeholder="Nome da empresa"
-            value={form.empresa}
-            onChange={(e) => handleChange("empresa", e.target.value)}
-          />
-        </Field>
-      </div>
-
-      {/* Cargo + Site */}
-      <div className="grid sm:grid-cols-2 gap-5">
-        <Field label="Cargo" error={errors.cargo}>
-          <Input
-            placeholder="Ex: CEO, Diretor Comercial"
-            value={form.cargo}
-            onChange={(e) => handleChange("cargo", e.target.value)}
-          />
-        </Field>
-        <Field label="Site ou Instagram (opcional)" error={errors.site}>
-          <Input
-            placeholder="https://..."
-            value={form.site}
-            onChange={(e) => handleChange("site", e.target.value)}
-          />
-        </Field>
-      </div>
-
-      {/* Funcionários + Faturamento */}
-      <div className="grid sm:grid-cols-2 gap-5">
-        <Field label="Número de funcionários" error={errors.funcionarios}>
-          <Select
-            value={form.funcionarios}
-            onChange={(v) => handleChange("funcionarios", v)}
-            options={["1–10", "11–50", "51–200", "200+"]}
-            placeholder="Selecione"
-          />
-        </Field>
-        <Field label="Faturamento mensal" error={errors.faturamento}>
-          <Select
-            value={form.faturamento}
-            onChange={(v) => handleChange("faturamento", v)}
-            options={["Até R$ 50k", "R$ 50k – R$ 200k", "R$ 200k – R$ 1M", "Acima de R$ 1M"]}
-            placeholder="Selecione"
-          />
-        </Field>
-      </div>
-
-      {/* Time comercial */}
-      <Field label="Possui time comercial?" error={errors.timeComercial}>
-        <div className="flex gap-3">
-          {["Sim", "Não", "Em estruturação"].map((opt) => (
-            <button
-              type="button"
-              key={opt}
-              onClick={() => handleChange("timeComercial", opt)}
-              className={`flex-1 text-sm font-medium py-2.5 rounded-md border transition-colors ${
-                form.timeComercial === opt
-                  ? "bg-secondary text-secondary-foreground border-secondary"
-                  : "bg-background text-foreground border-border hover:border-secondary/50"
-              }`}
+    <>
+      {/* Pop-up de inelegibilidade */}
+      <Dialog open={showIneligibleDialog} onOpenChange={setShowIneligibleDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-full bg-destructive/10">
+              <XCircle size={24} className="text-destructive" />
+            </div>
+            <DialogTitle className="text-center text-lg font-bold text-foreground">
+              Serviço não indicado neste momento
+            </DialogTitle>
+            <DialogDescription className="text-center text-muted-foreground leading-relaxed mt-3">
+              O Raio X de Oportunidades Perdidas é um serviço de <strong className="text-foreground">estruturação e otimização comercial</strong>.
+              Para que possamos atuar, é necessário que a empresa já possua um time comercial ativo.
+              <br /><br />
+              Sem um time em operação, não há processo para estruturar e os resultados não seriam possíveis.
+              <br /><br />
+              Quando você tiver um time comercial formado, teremos prazer em ajudar.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-2">
+            <Button
+              onClick={() => setShowIneligibleDialog(false)}
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              {opt}
-            </button>
-          ))}
+              Entendi
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-5">
+        {/* Nome + Empresa */}
+        <div className="grid sm:grid-cols-2 gap-5">
+          <Field label="Nome" error={errors.nome}>
+            <Input
+              placeholder="Seu nome completo"
+              value={form.nome}
+              onChange={(e) => handleChange("nome", e.target.value)}
+            />
+          </Field>
+          <Field label="Empresa" error={errors.empresa}>
+            <Input
+              placeholder="Nome da empresa"
+              value={form.empresa}
+              onChange={(e) => handleChange("empresa", e.target.value)}
+            />
+          </Field>
         </div>
-      </Field>
 
-      {/* Problema principal */}
-      <Field label="Principal problema hoje" error={errors.problema}>
-        <Select
-          value={form.problema}
-          onChange={(v) => handleChange("problema", v)}
-          options={[
-            "Leads não avançam no funil",
-            "Conversão baixa / imprevisível",
-            "Falta de visão dos números",
-            "Follow-up inconsistente",
-            "Equipe sem processo claro",
-            "Outro",
-          ]}
-          placeholder="Selecione o mais crítico"
-        />
-      </Field>
+        {/* Cargo + Site */}
+        <div className="grid sm:grid-cols-2 gap-5">
+          <Field label="Cargo" error={errors.cargo}>
+            <Input
+              placeholder="Ex: CEO, Diretor Comercial"
+              value={form.cargo}
+              onChange={(e) => handleChange("cargo", e.target.value)}
+            />
+          </Field>
+          <Field label="Site ou Instagram (opcional)" error={errors.site}>
+            <Input
+              placeholder="https://..."
+              value={form.site}
+              onChange={(e) => handleChange("site", e.target.value)}
+            />
+          </Field>
+        </div>
 
-      {/* WhatsApp */}
-      <Field label="Melhor WhatsApp para contato" error={errors.whatsapp}>
-        <Input
-          type="tel"
-          placeholder="(11) 99999-9999"
-          value={form.whatsapp}
-          onChange={(e) => handleChange("whatsapp", e.target.value)}
-        />
-      </Field>
+        {/* E-mail */}
+        <Field label="E-mail" error={errors.email}>
+          <Input
+            type="email"
+            placeholder="seu@email.com"
+            value={form.email}
+            onChange={(e) => handleChange("email", e.target.value)}
+          />
+        </Field>
 
-      <div className="pt-2">
-        <Button
-          type="submit"
-          className="w-full bg-secondary hover:bg-interactive text-secondary-foreground font-semibold h-12 text-sm rounded-md gap-2"
-        >
-          Enviar e agendar
-          <ChevronRight size={16} />
-        </Button>
-        <p className="text-xs text-muted-foreground text-center mt-3">
-          Se aprovado, você já escolhe o horário na sequência.
-        </p>
-      </div>
-    </form>
+        {/* Funcionários + Faturamento */}
+        <div className="grid sm:grid-cols-2 gap-5">
+          <Field label="Número de funcionários" error={errors.funcionarios}>
+            <Select
+              value={form.funcionarios}
+              onChange={(v) => handleChange("funcionarios", v)}
+              options={["1–10", "11–50", "51–200", "200+"]}
+              placeholder="Selecione"
+            />
+          </Field>
+          <Field label="Faturamento mensal" error={errors.faturamento}>
+            <Select
+              value={form.faturamento}
+              onChange={(v) => handleChange("faturamento", v)}
+              options={faturamentoOptions}
+              placeholder="Selecione"
+            />
+          </Field>
+        </div>
+
+        {/* Time comercial */}
+        <Field label="Possui time comercial?" error={errors.timeComercial}>
+          <div className="flex gap-3">
+            {["Sim", "Não", "Em estruturação"].map((opt) => (
+              <button
+                type="button"
+                key={opt}
+                onClick={() => handleTimeComercialSelect(opt)}
+                className={`flex-1 text-sm font-medium py-2.5 rounded-md border transition-colors ${
+                  form.timeComercial === opt
+                    ? "bg-secondary text-secondary-foreground border-secondary"
+                    : "bg-background text-foreground border-border hover:border-secondary/50"
+                }`}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        </Field>
+
+        {/* Problema principal */}
+        <Field label="Principal problema hoje" error={errors.problema}>
+          <Select
+            value={form.problema}
+            onChange={(v) => handleChange("problema", v)}
+            options={[
+              "Leads não avançam no funil",
+              "Conversão baixa / imprevisível",
+              "Falta de visão dos números",
+              "Follow-up inconsistente",
+              "Equipe sem processo claro",
+              "Outro",
+            ]}
+            placeholder="Selecione o mais crítico"
+          />
+        </Field>
+
+        {/* WhatsApp */}
+        <Field label="Melhor WhatsApp para contato" error={errors.whatsapp}>
+          <Input
+            type="tel"
+            placeholder="(11) 99999-9999"
+            value={form.whatsapp}
+            onChange={(e) => handleChange("whatsapp", e.target.value)}
+          />
+        </Field>
+
+        <div className="pt-2">
+          <Button
+            type="submit"
+            className="w-full bg-secondary hover:bg-interactive text-secondary-foreground font-semibold h-12 text-sm rounded-md gap-2"
+          >
+            Enviar e agendar
+            <ChevronRight size={16} />
+          </Button>
+          <p className="text-xs text-muted-foreground text-center mt-3">
+            Se aprovado, você já escolhe o horário na sequência.
+          </p>
+        </div>
+      </form>
+    </>
   );
 }
 
