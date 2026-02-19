@@ -1,4 +1,5 @@
 import { HeroDashboard } from "@/components/landing/HeroDashboard";
+import flowchartBg from "@/assets/flowchart-bg.jpg";
 import { ComparisonChart } from "@/components/landing/ComparisonChart";
 import { GrowthChart } from "@/components/landing/GrowthChart";
 import { LossFlowchart } from "@/components/landing/LossFlowchart";
@@ -184,7 +185,11 @@ function AlertSignalsSection() {
 
 function LossFlowchartSection() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-24">
+    <section className="relative max-w-6xl mx-auto px-6 py-24 rounded-2xl overflow-hidden">
+      <div
+        className="absolute inset-0 opacity-30 bg-cover bg-center bg-no-repeat pointer-events-none"
+        style={{ backgroundImage: `url(${flowchartBg})` }}
+      />
       <div className="max-w-3xl mx-auto text-center mb-14">
         <SectionLabel>Mapa de Vazamentos</SectionLabel>
         <h2 className="heading-lg text-foreground mb-4">Onde as vendas escapam (mesmo com leads chegando)</h2>
