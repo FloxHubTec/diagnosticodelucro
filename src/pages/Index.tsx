@@ -68,8 +68,8 @@ function CtaButton({
 function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
-        <span className="text-xs sm:text-sm font-bold text-foreground tracking-tight">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <span className="text-sm font-bold text-foreground tracking-tight">
           Raio X <span className="text-secondary">de Oportunidades Perdidas</span>
         </span>
         <CtaButton href="#formulario" size="sm">
@@ -85,7 +85,7 @@ function Navbar() {
 function HeroSection() {
   return (
     <section className="bg-primary text-primary-foreground">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 lg:py-36">
+      <div className="max-w-6xl mx-auto px-6 py-24 lg:py-36">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left */}
           <div>
@@ -117,7 +117,7 @@ function HeroSection() {
 
 function BeliefBreakSection() {
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <section className="max-w-6xl mx-auto px-6 py-24">
       <div className="max-w-3xl mx-auto text-center mb-14">
         <SectionLabel>Análise de Causa</SectionLabel>
         <h2 className="heading-lg text-foreground mb-6">O problema não é esforço comercial.</h2>
@@ -151,19 +151,19 @@ const alerts = [
 function AlertSignalsSection() {
   return (
     <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+      <div className="max-w-6xl mx-auto px-6 py-24">
         <div className="max-w-2xl mx-auto text-center mb-12">
           <SectionLabel>Sinais de Alerta</SectionLabel>
           <h2 className="heading-lg text-foreground">Sua operação apresenta estes sintomas?</h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl mx-auto mb-10">
+        <div className="grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto mb-10">
           {alerts.map(({ icon: Icon, text }) => (
-            <div key={text} className="flex items-center gap-3 sm:gap-4 bg-background border border-border rounded-lg px-4 sm:px-5 py-3 sm:py-4">
+            <div key={text} className="flex items-center gap-4 bg-background border border-border rounded-lg px-5 py-4">
               <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-md bg-accent border border-border">
                 <Icon size={16} className="text-secondary" />
               </div>
-              <span className="text-sm sm:text-base font-medium text-foreground">{text}</span>
+              <span className="text-base font-medium text-foreground">{text}</span>
             </div>
           ))}
         </div>
@@ -185,21 +185,19 @@ function AlertSignalsSection() {
 
 function LossFlowchartSection() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative max-w-6xl mx-auto px-6 py-24 rounded-2xl overflow-hidden">
       <div
         className="absolute inset-0 opacity-30 bg-cover bg-center bg-no-repeat pointer-events-none"
         style={{ backgroundImage: `url(${flowchartBg})` }}
       />
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-        <div className="max-w-3xl mx-auto text-center mb-14">
-          <SectionLabel>Mapa de Vazamentos</SectionLabel>
-          <h2 className="heading-lg text-foreground mb-4">Onde as vendas escapam (mesmo com leads chegando)</h2>
-          <p className="body-lg text-muted-foreground prose-max mx-auto">
-            Este é o mapa que a maioria dos gestores nunca viu da própria operação.
-          </p>
-        </div>
-        <LossFlowchart />
+      <div className="max-w-3xl mx-auto text-center mb-14">
+        <SectionLabel>Mapa de Vazamentos</SectionLabel>
+        <h2 className="heading-lg text-foreground mb-4">Onde as vendas escapam (mesmo com leads chegando)</h2>
+        <p className="body-lg text-muted-foreground prose-max mx-auto">
+          Este é o mapa que a maioria dos gestores nunca viu da própria operação.
+        </p>
       </div>
+      <LossFlowchart />
     </section>
   );
 }
@@ -209,7 +207,7 @@ function LossFlowchartSection() {
 function ServicePresentationSection() {
   return (
     <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+      <div className="max-w-6xl mx-auto px-6 py-24">
         <div className="max-w-2xl mx-auto text-center">
           <div className="w-14 h-14 mx-auto mb-8 flex items-center justify-center rounded-xl bg-background border border-border">
             <Radar size={26} className="text-secondary" />
@@ -270,7 +268,7 @@ const deliverables = [
 
 function DeliverablesSection() {
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <section className="max-w-6xl mx-auto px-6 py-24">
       <div className="max-w-2xl mx-auto text-center mb-12">
         <SectionLabel>O que o Diagnóstico Entrega</SectionLabel>
         <h2 className="heading-lg text-foreground">O que você recebe</h2>
@@ -327,7 +325,7 @@ const steps = [
 function MethodologySection() {
   return (
     <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+      <div className="max-w-6xl mx-auto px-6 py-24">
         <div className="max-w-2xl mx-auto text-center mb-14">
           <SectionLabel>Metodologia</SectionLabel>
           <h2 className="heading-lg text-foreground">Como funciona o processo</h2>
@@ -375,8 +373,8 @@ function MethodologySection() {
 
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <p className="text-sm text-muted-foreground border border-border rounded-lg px-6 py-4 bg-background">
-            Cada etapa foi desenhada para preparar e potencializar a próxima — garantindo que o diagnóstico gere ação
-            real e não apenas relatório.
+            Cada etapa foi desenhada para preparar e potencializar a próxima garantindo que o diagnóstico gere ação real
+            e não apenas relatório.
           </p>
           <CtaButton href="#formulario">Agendar diagnóstico</CtaButton>
         </div>
@@ -389,7 +387,7 @@ function MethodologySection() {
 
 function DifferentialSection() {
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <section className="max-w-6xl mx-auto px-6 py-24">
       <div className="max-w-2xl mx-auto text-center mb-12">
         <SectionLabel>Diferencial</SectionLabel>
         <h2 className="heading-lg text-foreground mb-6">Você não recebe teoria. Você recebe correção.</h2>
@@ -408,7 +406,7 @@ function DifferentialSection() {
 function VideoSection() {
   return (
     <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+      <div className="max-w-6xl mx-auto px-6 py-24">
         <div className="max-w-2xl mx-auto text-center mb-10">
           <SectionLabel>Assista antes de aplicar</SectionLabel>
           <h2 className="heading-lg text-foreground mb-4">2 minutos que valem a leitura inteira</h2>
@@ -430,7 +428,7 @@ function VideoSection() {
 
 function ResultSection() {
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <section className="max-w-6xl mx-auto px-6 py-24">
       <div className="max-w-2xl mx-auto text-center mb-12">
         <SectionLabel>O que Você Ganha</SectionLabel>
         <h2 className="heading-lg text-foreground mb-4">O que você ganha com isso</h2>
@@ -463,7 +461,7 @@ const forWhom = [
 function ForWhomSection() {
   return (
     <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+      <div className="max-w-6xl mx-auto px-6 py-24">
         <div className="max-w-3xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div>
@@ -504,7 +502,7 @@ function ForWhomSection() {
 
 function FormSection() {
   return (
-    <section id="formulario" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <section id="formulario" className="max-w-6xl mx-auto px-6 py-24">
       <div className="max-w-2xl mx-auto text-center mb-12">
         <SectionLabel>Aplicação</SectionLabel>
         <h2 className="heading-lg text-foreground mb-4">Aplicação para a análise estratégica</h2>
@@ -522,7 +520,7 @@ function FormSection() {
 function CTASection() {
   return (
     <section className="bg-primary">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
+      <div className="max-w-6xl mx-auto px-6 py-24 text-center">
         <SectionLabel light>Próximo Passo</SectionLabel>
         <h2 className="heading-lg text-primary-foreground mb-6">Pronta para parar de perder oportunidades?</h2>
         <p className="body-lg text-primary-foreground/65 prose-max mx-auto mb-10">
@@ -539,7 +537,7 @@ function CTASection() {
 function Footer() {
   return (
     <footer className="border-t border-border bg-background">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <div className="max-w-6xl mx-auto px-6 py-14">
         <div className="grid md:grid-cols-3 gap-10 mb-12">
           {/* Brand */}
           <div>
