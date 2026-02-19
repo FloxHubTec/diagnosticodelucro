@@ -463,7 +463,7 @@ function ForWhomSection() {
               <SectionLabel>Perfil Ideal</SectionLabel>
               <h2 className="heading-lg text-foreground mb-4">Para quem este serviço é indicado</h2>
               <p className="body-lg text-muted-foreground">
-                Este diagnóstico é desenhado para operações comerciais que já funcionam — e precisam funcionar melhor.
+                Este diagnóstico é desenhado para operações comerciais que já funcionam e precisam funcionar melhor.
               </p>
               <div className="mt-8 p-4 bg-background border border-border rounded-lg">
                 <p className="text-sm text-muted-foreground leading-relaxed">
