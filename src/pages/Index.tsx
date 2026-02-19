@@ -388,7 +388,7 @@ function DifferentialSection() {
         <h2 className="heading-lg text-foreground mb-6">Você não recebe teoria. Você recebe correção.</h2>
         <p className="body-lg text-muted-foreground prose-max mx-auto">
           Você não recebe um PDF dizendo o que fazer. Você recebe diagnóstico, estrutura e nossa equipe implementa todas
-          as ferramentas e fluxo necessário para seu negócio crescer. acontecer.
+          as ferramentas e fluxo necessário para seu negócio crescer de verdade.
         </p>
       </div>
       <GearDifferential />
