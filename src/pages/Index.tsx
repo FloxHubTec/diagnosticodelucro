@@ -556,13 +556,13 @@ function Footer() {
                 suporte@floxhub.com.br
               </a>
               <a
-                href="https://wa.me/55"
+                href="https://wa.me/5581994096516?text=Olá,%20gostaria%20de%20agendar%20uma%20reunião%20para%20falar%20sobre"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-secondary transition-colors"
               >
                 <Phone size={14} />
-                WhatsApp — a definir
+                (81) 9 9409.6516
               </a>
             </div>
           </div>
@@ -572,14 +572,18 @@ function Footer() {
             <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-4">Redes Sociais</p>
             <div className="flex gap-4 mb-6">
               <a
-                href="#"
+                href="https://www.instagram.com/floxhub"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="w-9 h-9 flex items-center justify-center rounded-md border border-border text-muted-foreground hover:text-secondary hover:border-secondary transition-colors"
               >
                 <Instagram size={16} />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/floxhub"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 className="w-9 h-9 flex items-center justify-center rounded-md border border-border text-muted-foreground hover:text-secondary hover:border-secondary transition-colors"
               >
