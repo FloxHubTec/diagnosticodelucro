@@ -31,11 +31,7 @@ import {
 // ─── Shared primitives ────────────────────────────────────────────────────────
 
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
-  return (
-    <p className={`corporate-label mb-4 ${light ? "text-primary-foreground/40" : ""}`}>
-      {children}
-    </p>
-  );
+  return <p className={`corporate-label mb-4 ${light ? "text-primary-foreground/40" : ""}`}>{children}</p>;
 }
 
 function CtaButton({
@@ -49,8 +45,7 @@ function CtaButton({
   size?: "default" | "sm";
   variant?: "primary" | "ghost";
 }) {
-  const base =
-    "inline-flex items-center gap-2 font-semibold rounded-md transition-colors duration-200";
+  const base = "inline-flex items-center gap-2 font-semibold rounded-md transition-colors duration-200";
   const variants = {
     primary: "bg-secondary hover:bg-interactive text-secondary-foreground",
     ghost: "border border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground",
@@ -97,8 +92,8 @@ function HeroSection() {
               Diagnóstico Estratégico B2B · Análise de Conversão Comercial
             </p>
             <h1 className="heading-xl text-primary-foreground mb-6">
-              Sua empresa pode estar perdendo até{" "}
-              <span className="text-secondary">30% das oportunidades</span> de venda sem perceber.
+              Sua empresa pode estar perdendo até <span className="text-secondary">30% das oportunidades</span> de venda
+              sem perceber.
             </h1>
             <p className="body-lg text-primary-foreground/65 prose-max mb-10">
               Não é falta de cliente. É falha de processo: atendimento, acompanhamento, funil e visão de números.
@@ -126,9 +121,8 @@ function BeliefBreakSection() {
         <SectionLabel>Análise de Causa</SectionLabel>
         <h2 className="heading-lg text-foreground mb-6">O problema não é esforço comercial.</h2>
         <p className="body-lg text-muted-foreground prose-max mx-auto">
-          Na maioria das operações, o time trabalha, os leads chegam e propostas são enviadas.
-          Mas a conversão não acompanha porque há{" "}
-          <strong className="text-foreground">vazamentos invisíveis no processo</strong>.
+          Na maioria das operações, o time trabalha, os leads chegam e propostas são enviadas. Mas a conversão não
+          acompanha porque há <strong className="text-foreground">vazamentos invisíveis no processo</strong>.
         </p>
       </div>
       <ComparisonChart />
@@ -164,10 +158,7 @@ function AlertSignalsSection() {
 
         <div className="grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto mb-10">
           {alerts.map(({ icon: Icon, text }) => (
-            <div
-              key={text}
-              className="flex items-center gap-4 bg-background border border-border rounded-lg px-5 py-4"
-            >
+            <div key={text} className="flex items-center gap-4 bg-background border border-border rounded-lg px-5 py-4">
               <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-md bg-accent border border-border">
                 <Icon size={16} className="text-secondary" />
               </div>
@@ -196,9 +187,7 @@ function LossFlowchartSection() {
     <section className="max-w-6xl mx-auto px-6 py-24">
       <div className="max-w-3xl mx-auto text-center mb-14">
         <SectionLabel>Mapa de Vazamentos</SectionLabel>
-        <h2 className="heading-lg text-foreground mb-4">
-          Onde as vendas escapam (mesmo com leads chegando)
-        </h2>
+        <h2 className="heading-lg text-foreground mb-4">Onde as vendas escapam (mesmo com leads chegando)</h2>
         <p className="body-lg text-muted-foreground prose-max mx-auto">
           Este é o mapa que a maioria dos gestores nunca viu da própria operação.
         </p>
@@ -219,9 +208,7 @@ function ServicePresentationSection() {
             <Radar size={26} className="text-secondary" />
           </div>
           <SectionLabel>O Serviço</SectionLabel>
-          <h2 className="heading-lg text-foreground mb-6">
-            O que é o Raio X de Oportunidades Perdidas
-          </h2>
+          <h2 className="heading-lg text-foreground mb-6">O que é o Raio X de Oportunidades Perdidas</h2>
           <p className="body-lg text-muted-foreground prose-max mx-auto mb-8">
             Serviço estratégico de diagnóstico e estruturação comercial que identifica pontos ocultos onde a empresa
             perde vendas e <strong className="text-foreground">implementa correções para eliminar essas perdas</strong>.
@@ -262,7 +249,11 @@ const deliverables = [
     title: "Oportunidades desperdiçadas",
     desc: "Leads que poderiam ter fechado mas saíram sem resposta.",
   },
-  { icon: Activity, title: "Análise de performance", desc: "Dados reais versus percepção interna da equipe comercial." },
+  {
+    icon: Activity,
+    title: "Análise de performance",
+    desc: "Dados reais versus percepção interna da equipe comercial.",
+  },
   {
     icon: CheckCircle,
     title: "Plano de correção estruturado",
@@ -317,12 +308,12 @@ const steps = [
   {
     num: "04",
     label: "Implantação Inteligente",
-    desc: "Ativação de soluções que organizam e monitoram a operação.",
+    desc: "Ativação de soluções que organizam, automatizam e monitoram a operação.",
   },
   {
     num: "05",
     label: "Monitoramento Estratégico",
-    desc: "Acompanhamento para garantir que o processo continue funcionando.",
+    desc: "Acompanhamento com relatórios estruturados para garantir que o processo continue funcionando.",
   },
 ];
 
@@ -377,7 +368,8 @@ function MethodologySection() {
 
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <p className="text-sm text-muted-foreground border border-border rounded-lg px-6 py-4 bg-background">
-            Cada etapa foi desenhada para preparar e potencializar a próxima — garantindo que o diagnóstico gere ação real e não apenas relatório.
+            Cada etapa foi desenhada para preparar e potencializar a próxima — garantindo que o diagnóstico gere ação
+            real e não apenas relatório.
           </p>
           <CtaButton href="#formulario">Agendar diagnóstico</CtaButton>
         </div>
@@ -395,8 +387,8 @@ function DifferentialSection() {
         <SectionLabel>Diferencial</SectionLabel>
         <h2 className="heading-lg text-foreground mb-6">Você não recebe teoria. Você recebe correção.</h2>
         <p className="body-lg text-muted-foreground prose-max mx-auto">
-          Você não recebe um PDF dizendo o que fazer.
-          Você recebe diagnóstico, estrutura e implantação para fazer acontecer.
+          Você não recebe um PDF dizendo o que fazer. Você recebe diagnóstico, estrutura e implantação para fazer
+          acontecer.
         </p>
       </div>
       <GearDifferential />
@@ -414,7 +406,8 @@ function VideoSection() {
           <SectionLabel>Assista antes de aplicar</SectionLabel>
           <h2 className="heading-lg text-foreground mb-4">2 minutos que valem a leitura inteira</h2>
           <p className="body-lg text-muted-foreground prose-max mx-auto">
-            Neste vídeo: o que identifico no Raio X, como é a reunião, o que você recebe ao final e para quem faz sentido.
+            Neste vídeo: o que identifico no Raio X, como é a reunião, o que você recebe ao final e para quem faz
+            sentido.
           </p>
         </div>
         <VideoEmbed />
@@ -435,8 +428,7 @@ function ResultSection() {
         <SectionLabel>O que Você Ganha</SectionLabel>
         <h2 className="heading-lg text-foreground mb-4">O que você ganha com isso</h2>
         <p className="body-lg text-muted-foreground prose-max mx-auto mb-4">
-          Você não compra análise.{" "}
-          <strong className="text-foreground">Compra controle da operação comercial.</strong>
+          Você não compra análise. <strong className="text-foreground">Compra controle da operação comercial.</strong>
         </p>
         <p className="text-base text-muted-foreground">
           Mesmo uma pequena falha de acompanhamento pode representar{" "}
@@ -476,7 +468,8 @@ function ForWhomSection() {
               <div className="mt-8 p-4 bg-background border border-border rounded-lg">
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   <strong className="text-foreground block mb-1">Nota:</strong>
-                  Se a empresa ainda está validando produto/mercado e não tem operação comercial ativa, este serviço não é o ideal agora.
+                  Se a empresa ainda está validando produto/mercado e não tem operação comercial ativa, este serviço não
+                  é o ideal agora.
                 </p>
               </div>
             </div>
@@ -524,9 +517,7 @@ function CTASection() {
     <section className="bg-primary">
       <div className="max-w-6xl mx-auto px-6 py-24 text-center">
         <SectionLabel light>Próximo Passo</SectionLabel>
-        <h2 className="heading-lg text-primary-foreground mb-6">
-          Pronta para parar de perder oportunidades?
-        </h2>
+        <h2 className="heading-lg text-primary-foreground mb-6">Pronta para parar de perder oportunidades?</h2>
         <p className="body-lg text-primary-foreground/65 prose-max mx-auto mb-10">
           Se sua empresa já vende e quer corrigir os vazamentos comerciais, aplique para o Raio X.
         </p>
