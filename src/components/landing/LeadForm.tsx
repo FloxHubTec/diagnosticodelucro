@@ -42,13 +42,10 @@ const initialState: FormData = {
 };
 
 const faturamentoOptions = [
-  "Até R$100 mil",
-  "R$100 mil – R$300 mil",
-  "R$300 mil – R$500 mil",
-  "R$500 mil – R$1 milhão",
-  "R$1 milhão – R$3 milhões",
-  "R$3 milhões – R$10 milhões",
-  "Acima de R$10 milhões",
+  "R$ 20k a R$ 30k",
+  "R$ 30k a R$ 50k",
+  "R$ 50k a R$ 100k",
+  "Acima de R$ 100k",
 ];
 
 const stepLabels = ["Dados Pessoais", "Sobre a Empresa", "Diagnóstico"];
@@ -251,8 +248,8 @@ export function LeadForm() {
               <Field label="Número de funcionários" error={errors.funcionarios}>
                 <Select value={form.funcionarios} onChange={(v) => handleChange("funcionarios", v)} options={["1–10", "11–50", "51–200", "200+"]} placeholder="Selecione" />
               </Field>
-              <Field label="Faturamento mensal" error={errors.faturamento}>
-                <Select value={form.faturamento} onChange={(v) => handleChange("faturamento", v)} options={faturamentoOptions} placeholder="Selecione" />
+              <Field label="Capacidade mensal de investimento em crescimento comercial" error={errors.faturamento}>
+                <Select value={form.faturamento} onChange={(v) => handleChange("faturamento", v)} options={faturamentoOptions} placeholder="Selecione o investimento disponível" />
               </Field>
             </div>
             <Field label="Possui time comercial?" error={errors.timeComercial}>
