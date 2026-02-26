@@ -1,5 +1,7 @@
 import { HeroDashboard } from "@/components/landing/HeroDashboard";
 import flowchartBg from "@/assets/flowchart-bg.jpg";
+import heroCockpit from "@/assets/hero-cockpit.jpg";
+import { DiagnosticTabs } from "@/components/landing/DiagnosticTabs";
 import { ComparisonChart } from "@/components/landing/ComparisonChart";
 import { GrowthChart } from "@/components/landing/GrowthChart";
 import { LossFlowchart } from "@/components/landing/LossFlowchart";
@@ -84,8 +86,16 @@ function Navbar() {
 
 function HeroSection() {
   return (
-    <section className="bg-primary text-primary-foreground">
-      <div className="max-w-6xl mx-auto px-6 py-24 lg:py-36">
+    <section className="relative bg-primary text-primary-foreground overflow-hidden">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroCockpit})` }}
+      />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-primary/80" />
+
+      <div className="relative max-w-6xl mx-auto px-6 py-24 lg:py-36">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left */}
           <div>
@@ -176,6 +186,28 @@ function AlertSignalsSection() {
           </div>
           <CtaButton href="#formulario">Aplicar para o Raio X</CtaButton>
         </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Section — VISUALIZE SEU DIAGNÓSTICO ──────────────────────────────────────
+
+function DiagnosticTabsSection() {
+  return (
+    <section className="max-w-6xl mx-auto px-6 py-24">
+      <div className="max-w-2xl mx-auto text-center mb-12">
+        <SectionLabel>Integração</SectionLabel>
+        <h2 className="heading-lg text-foreground mb-4">Visualize seu Diagnóstico</h2>
+        <p className="body-lg text-muted-foreground prose-max mx-auto">
+          Veja como o Raio X transforma dados brutos em inteligência comercial acionável.
+        </p>
+      </div>
+      <DiagnosticTabs />
+      <div className="text-center mt-10">
+        <CtaButton href="#formulario" variant="ghost">
+          Solicitar análise
+        </CtaButton>
       </div>
     </section>
   );
@@ -633,6 +665,7 @@ const Index = () => {
       <HeroSection />
       <BeliefBreakSection />
       <AlertSignalsSection />
+      <DiagnosticTabsSection />
       <LossFlowchartSection />
       <ServicePresentationSection />
       <DeliverablesSection />

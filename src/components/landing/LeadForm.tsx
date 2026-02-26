@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChevronRight, CheckCircle, XCircle } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { ChevronRight, ChevronLeft, CheckCircle, XCircle } from "lucide-react";
 import { z } from "zod";
 import {
   Dialog,
@@ -50,11 +51,24 @@ const faturamentoOptions = [
   "Acima de R$10 milhões",
 ];
 
+const stepLabels = ["Dados Pessoais", "Sobre a Empresa", "Diagnóstico"];
+
+// Fields required per step for partial validation
+const stepFields: (keyof FormData)[][] = [
+  ["nome", "empresa", "cargo", "email"],
+  ["funcionarios", "faturamento", "timeComercial"],
+  ["problema", "whatsapp"],
+];
+
 export function LeadForm() {
   const [form, setForm] = useState<FormData>(initialState);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [submitted, setSubmitted] = useState(false);
   const [showIneligibleDialog, setShowIneligibleDialog] = useState(false);
+  const [step, setStep] = useState(0);
+
+  const totalSteps = 3;
+  const progressValue = ((step + 1) / totalSteps) * 100;
 
   function handleChange(field: keyof FormData, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -68,14 +82,50 @@ export function LeadForm() {
     }
   }
 
+  function validateStep(): boolean {
+    const fields = stepFields[step];
+    const result = schema.safeParse(form);
+    if (result.success) {
+      // Clear errors for current step fields
+      const cleared = { ...errors };
+      fields.forEach((f) => (cleared[f] = undefined));
+      setErrors(cleared);
+      return true;
+    }
+
+    const fieldErrors: Partial<Record<keyof FormData, string>> = {};
+    let hasStepError = false;
+    result.error.errors.forEach((err) => {
+      const key = err.path[0] as keyof FormData;
+      if (fields.includes(key)) {
+        fieldErrors[key] = err.message;
+        hasStepError = true;
+      }
+    });
+    setErrors((prev) => ({ ...prev, ...fieldErrors }));
+    return !hasStepError;
+  }
+
+  function handleNext() {
+    if (step === 1 && form.timeComercial === "Não") {
+      setShowIneligibleDialog(true);
+      return;
+    }
+    if (validateStep()) {
+      setStep((s) => Math.min(s + 1, totalSteps - 1));
+    }
+  }
+
+  function handleBack() {
+    setStep((s) => Math.max(s - 1, 0));
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
     if (form.timeComercial === "Não") {
       setShowIneligibleDialog(true);
       return;
     }
-
     const result = schema.safeParse(form);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof FormData, string>> = {};
@@ -115,7 +165,7 @@ export function LeadForm() {
 
   return (
     <>
-      {/* Pop-up de inelegibilidade */}
+      {/* Ineligible dialog */}
       <Dialog open={showIneligibleDialog} onOpenChange={setShowIneligibleDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
@@ -145,132 +195,146 @@ export function LeadForm() {
         </DialogContent>
       </Dialog>
 
-      <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-5">
-        {/* Nome + Empresa */}
-        <div className="grid sm:grid-cols-2 gap-5">
-          <Field label="Nome" error={errors.nome}>
-            <Input
-              placeholder="Seu nome completo"
-              value={form.nome}
-              onChange={(e) => handleChange("nome", e.target.value)}
-            />
-          </Field>
-          <Field label="Empresa" error={errors.empresa}>
-            <Input
-              placeholder="Nome da empresa"
-              value={form.empresa}
-              onChange={(e) => handleChange("empresa", e.target.value)}
-            />
-          </Field>
-        </div>
-
-        {/* Cargo + Site */}
-        <div className="grid sm:grid-cols-2 gap-5">
-          <Field label="Cargo" error={errors.cargo}>
-            <Input
-              placeholder="Ex: CEO, Diretor Comercial"
-              value={form.cargo}
-              onChange={(e) => handleChange("cargo", e.target.value)}
-            />
-          </Field>
-          <Field label="Site ou Instagram (opcional)" error={errors.site}>
-            <Input
-              placeholder="https://..."
-              value={form.site}
-              onChange={(e) => handleChange("site", e.target.value)}
-            />
-          </Field>
-        </div>
-
-        {/* E-mail */}
-        <Field label="E-mail" error={errors.email}>
-          <Input
-            type="email"
-            placeholder="seu@email.com"
-            value={form.email}
-            onChange={(e) => handleChange("email", e.target.value)}
-          />
-        </Field>
-
-        {/* Funcionários + Faturamento */}
-        <div className="grid sm:grid-cols-2 gap-5">
-          <Field label="Número de funcionários" error={errors.funcionarios}>
-            <Select
-              value={form.funcionarios}
-              onChange={(v) => handleChange("funcionarios", v)}
-              options={["1–10", "11–50", "51–200", "200+"]}
-              placeholder="Selecione"
-            />
-          </Field>
-          <Field label="Faturamento mensal" error={errors.faturamento}>
-            <Select
-              value={form.faturamento}
-              onChange={(v) => handleChange("faturamento", v)}
-              options={faturamentoOptions}
-              placeholder="Selecione"
-            />
-          </Field>
-        </div>
-
-        {/* Time comercial */}
-        <Field label="Possui time comercial?" error={errors.timeComercial}>
-          <div className="flex gap-3">
-            {["Sim", "Não", "Em estruturação"].map((opt) => (
+      <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
+        {/* Progress header */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            {stepLabels.map((label, i) => (
               <button
                 type="button"
-                key={opt}
-                onClick={() => handleTimeComercialSelect(opt)}
-                className={`flex-1 text-sm font-medium py-2.5 rounded-md border transition-colors ${
-                  form.timeComercial === opt
-                    ? "bg-secondary text-secondary-foreground border-secondary"
-                    : "bg-background text-foreground border-border hover:border-secondary/50"
+                key={label}
+                onClick={() => { if (i < step) setStep(i); }}
+                className={`text-xs font-semibold transition-colors ${
+                  i === step
+                    ? "text-secondary"
+                    : i < step
+                    ? "text-secondary/60 cursor-pointer hover:text-secondary"
+                    : "text-muted-foreground"
                 }`}
               >
-                {opt}
+                {`${i + 1}. ${label}`}
               </button>
             ))}
           </div>
-        </Field>
-
-        {/* Problema principal */}
-        <Field label="Principal problema hoje" error={errors.problema}>
-          <Select
-            value={form.problema}
-            onChange={(v) => handleChange("problema", v)}
-            options={[
-              "Leads não avançam no funil",
-              "Conversão baixa / imprevisível",
-              "Falta de visão dos números",
-              "Follow-up inconsistente",
-              "Equipe sem processo claro",
-              "Outro",
-            ]}
-            placeholder="Selecione o mais crítico"
-          />
-        </Field>
-
-        {/* WhatsApp */}
-        <Field label="Melhor WhatsApp para contato" error={errors.whatsapp}>
-          <Input
-            type="tel"
-            placeholder="(11) 99999-9999"
-            value={form.whatsapp}
-            onChange={(e) => handleChange("whatsapp", e.target.value)}
-          />
-        </Field>
-
-        <div className="pt-2">
-          <Button
-            type="submit"
-            className="w-full bg-secondary hover:bg-interactive text-secondary-foreground font-semibold h-12 text-sm rounded-md gap-2"
-          >
-            Enviar e agendar
-            <ChevronRight size={16} />
-          </Button>
-          <p className="text-xs text-muted-foreground text-center mt-3">
-            Se aprovado, você já escolhe o horário na sequência.
-          </p>
+          <Progress value={progressValue} className="h-2 bg-border [&>div]:bg-secondary" />
         </div>
+
+        {/* Step 1: Personal */}
+        {step === 0 && (
+          <div className="space-y-5 animate-in fade-in duration-300">
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field label="Nome" error={errors.nome}>
+                <Input placeholder="Seu nome completo" value={form.nome} onChange={(e) => handleChange("nome", e.target.value)} />
+              </Field>
+              <Field label="Empresa" error={errors.empresa}>
+                <Input placeholder="Nome da empresa" value={form.empresa} onChange={(e) => handleChange("empresa", e.target.value)} />
+              </Field>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field label="Cargo" error={errors.cargo}>
+                <Input placeholder="Ex: CEO, Diretor Comercial" value={form.cargo} onChange={(e) => handleChange("cargo", e.target.value)} />
+              </Field>
+              <Field label="Site ou Instagram (opcional)" error={errors.site}>
+                <Input placeholder="https://..." value={form.site} onChange={(e) => handleChange("site", e.target.value)} />
+              </Field>
+            </div>
+            <Field label="E-mail" error={errors.email}>
+              <Input type="email" placeholder="seu@email.com" value={form.email} onChange={(e) => handleChange("email", e.target.value)} />
+            </Field>
+          </div>
+        )}
+
+        {/* Step 2: Company */}
+        {step === 1 && (
+          <div className="space-y-5 animate-in fade-in duration-300">
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field label="Número de funcionários" error={errors.funcionarios}>
+                <Select value={form.funcionarios} onChange={(v) => handleChange("funcionarios", v)} options={["1–10", "11–50", "51–200", "200+"]} placeholder="Selecione" />
+              </Field>
+              <Field label="Faturamento mensal" error={errors.faturamento}>
+                <Select value={form.faturamento} onChange={(v) => handleChange("faturamento", v)} options={faturamentoOptions} placeholder="Selecione" />
+              </Field>
+            </div>
+            <Field label="Possui time comercial?" error={errors.timeComercial}>
+              <div className="flex gap-3">
+                {["Sim", "Não", "Em estruturação"].map((opt) => (
+                  <button
+                    type="button"
+                    key={opt}
+                    onClick={() => handleTimeComercialSelect(opt)}
+                    className={`flex-1 text-sm font-medium py-2.5 rounded-md border transition-colors ${
+                      form.timeComercial === opt
+                        ? "bg-secondary text-secondary-foreground border-secondary"
+                        : "bg-background text-foreground border-border hover:border-secondary/50"
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </Field>
+          </div>
+        )}
+
+        {/* Step 3: Diagnostic */}
+        {step === 2 && (
+          <div className="space-y-5 animate-in fade-in duration-300">
+            <Field label="Principal problema hoje" error={errors.problema}>
+              <Select
+                value={form.problema}
+                onChange={(v) => handleChange("problema", v)}
+                options={[
+                  "Leads não avançam no funil",
+                  "Conversão baixa / imprevisível",
+                  "Falta de visão dos números",
+                  "Follow-up inconsistente",
+                  "Equipe sem processo claro",
+                  "Outro",
+                ]}
+                placeholder="Selecione o mais crítico"
+              />
+            </Field>
+            <Field label="Melhor WhatsApp para contato" error={errors.whatsapp}>
+              <Input type="tel" placeholder="(11) 99999-9999" value={form.whatsapp} onChange={(e) => handleChange("whatsapp", e.target.value)} />
+            </Field>
+          </div>
+        )}
+
+        {/* Navigation */}
+        <div className="flex gap-3 pt-2">
+          {step > 0 && (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleBack}
+              className="flex-1 h-12 text-sm font-semibold gap-2 border-border"
+            >
+              <ChevronLeft size={16} />
+              Voltar
+            </Button>
+          )}
+          {step < totalSteps - 1 ? (
+            <Button
+              type="button"
+              onClick={handleNext}
+              className="flex-1 bg-secondary hover:bg-interactive text-secondary-foreground font-semibold h-12 text-sm rounded-md gap-2"
+            >
+              Próximo
+              <ChevronRight size={16} />
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              className="flex-1 bg-secondary hover:bg-interactive text-secondary-foreground font-semibold h-12 text-sm rounded-md gap-2"
+            >
+              Enviar e agendar
+              <ChevronRight size={16} />
+            </Button>
+          )}
+        </div>
+        <p className="text-xs text-muted-foreground text-center">
+          Se aprovado, você já escolhe o horário na sequência.
+        </p>
       </form>
     </>
   );
@@ -278,15 +342,7 @@ export function LeadForm() {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function Field({
-  label,
-  error,
-  children,
-}: {
-  label: string;
-  error?: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
       <Label className="text-sm font-medium text-foreground">{label}</Label>
@@ -296,30 +352,16 @@ function Field({
   );
 }
 
-function Select({
-  value,
-  onChange,
-  options,
-  placeholder,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  options: string[];
-  placeholder: string;
-}) {
+function Select({ value, onChange, options, placeholder }: { value: string; onChange: (v: string) => void; options: string[]; placeholder: string }) {
   return (
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-foreground"
     >
-      <option value="" disabled>
-        {placeholder}
-      </option>
+      <option value="" disabled>{placeholder}</option>
       {options.map((opt) => (
-        <option key={opt} value={opt}>
-          {opt}
-        </option>
+        <option key={opt} value={opt}>{opt}</option>
       ))}
     </select>
   );
