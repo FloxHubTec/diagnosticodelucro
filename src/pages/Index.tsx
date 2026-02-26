@@ -1,6 +1,6 @@
 import { HeroDashboard } from "@/components/landing/HeroDashboard";
 import flowchartBg from "@/assets/flowchart-bg.jpg";
-import heroCockpit from "@/assets/hero-cockpit.jpg";
+
 import { DiagnosticTabs } from "@/components/landing/DiagnosticTabs";
 import { ComparisonChart } from "@/components/landing/ComparisonChart";
 import { GrowthChart } from "@/components/landing/GrowthChart";
@@ -86,16 +86,8 @@ function Navbar() {
 
 function HeroSection() {
   return (
-    <section className="relative bg-primary text-primary-foreground overflow-hidden">
-      {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroCockpit})` }}
-      />
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-primary/80" />
-
-      <div className="relative max-w-6xl mx-auto px-6 py-24 lg:py-36">
+    <section className="bg-primary text-primary-foreground">
+      <div className="max-w-6xl mx-auto px-6 py-24 lg:py-36">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left */}
           <div>
@@ -191,23 +183,23 @@ function AlertSignalsSection() {
   );
 }
 
-// ─── Section — VISUALIZE SEU DIAGNÓSTICO ──────────────────────────────────────
+// ─── Section — PAINEL DE INTELIGÊNCIA RAIO X ──────────────────────────────────
 
 function DiagnosticTabsSection() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-24">
-      <div className="max-w-2xl mx-auto text-center mb-12">
-        <SectionLabel>Integração</SectionLabel>
-        <h2 className="heading-lg text-foreground mb-4">Visualize seu Diagnóstico</h2>
-        <p className="body-lg text-muted-foreground prose-max mx-auto">
-          Veja como o Raio X transforma dados brutos em inteligência comercial acionável.
-        </p>
-      </div>
-      <DiagnosticTabs />
-      <div className="text-center mt-10">
-        <CtaButton href="#formulario" variant="ghost">
-          Solicitar análise
-        </CtaButton>
+    <section className="bg-primary">
+      <div className="max-w-6xl mx-auto px-6 py-24">
+        <div className="max-w-2xl mx-auto text-center mb-12">
+          <p className="text-xs font-semibold tracking-widest uppercase text-primary-foreground/40 mb-4">Painel de Inteligência</p>
+          <h2 className="heading-lg text-primary-foreground mb-4">Raio X: seu diagnóstico em tempo real</h2>
+          <p className="body-lg text-primary-foreground/65 prose-max mx-auto">
+            Veja como transformamos dados brutos em inteligência comercial acionável.
+          </p>
+        </div>
+        <DiagnosticTabs />
+        <div className="text-center mt-10">
+          <CtaButton href="#formulario">Solicitar meu diagnóstico</CtaButton>
+        </div>
       </div>
     </section>
   );
