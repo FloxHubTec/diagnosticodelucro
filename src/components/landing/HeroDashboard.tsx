@@ -7,11 +7,6 @@ import {
   Tooltip,
 } from "recharts";
 
-const EMERALD = "hsl(142, 70%, 45%)";
-const AMBER = "hsl(38, 92%, 50%)";
-const BLUE = "hsl(224, 70%, 40%)";
-const SLATE = "hsl(215, 16%, 47%)";
-
 const conversionData = [
   { mes: "Ago", valor: 18 },
   { mes: "Set", valor: 21 },
@@ -52,8 +47,9 @@ export function HeroDashboard() {
             <p className="text-xs text-muted-foreground mb-1">{m.label}</p>
             <p className="text-xl font-bold text-foreground metric-number">{m.value}</p>
             <p
-              className={`text-xs font-medium mt-0.5`}
-              style={{ color: m.negative ? "hsl(0, 84%, 60%)" : EMERALD }}
+              className={`text-xs font-medium mt-0.5 ${
+                m.negative ? "text-destructive" : "text-secondary"
+              }`}
             >
               {m.delta} vs. mês anterior
             </p>
@@ -67,32 +63,29 @@ export function HeroDashboard() {
         <ResponsiveContainer width="100%" height={100}>
           <AreaChart data={conversionData} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
             <defs>
-              <linearGradient id="convGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={EMERALD} stopOpacity={0.2} />
-                <stop offset="95%" stopColor={EMERALD} stopOpacity={0} />
+              <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="hsl(224,70%,40%)" stopOpacity={0.15} />
+                <stop offset="95%" stopColor="hsl(224,70%,40%)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <XAxis dataKey="mes" tick={{ fontSize: 10, fill: SLATE }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fontSize: 10, fill: SLATE }} axisLine={false} tickLine={false} />
+            <XAxis dataKey="mes" tick={{ fontSize: 10, fill: "hsl(215,16%,47%)" }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 10, fill: "hsl(215,16%,47%)" }} axisLine={false} tickLine={false} />
             <Tooltip
               contentStyle={{
-                background: "hsl(210, 77%, 12%)",
-                border: "1px solid hsl(210, 40%, 20%)",
+                background: "hsl(0,0%,100%)",
+                border: "1px solid hsl(220,13%,91%)",
                 borderRadius: 6,
                 fontSize: 11,
-                color: "#e2e8f0",
               }}
               formatter={(v: number) => [`${v}%`, "Conversão"]}
             />
             <Area
               type="monotone"
               dataKey="valor"
-              stroke={EMERALD}
+              stroke="hsl(224,70%,40%)"
               strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="url(#convGrad)"
-              dot={{ r: 3, fill: EMERALD, strokeWidth: 0 }}
+              fill="url(#blueGrad)"
+              dot={{ r: 3, fill: "hsl(224,70%,40%)", strokeWidth: 0 }}
             />
           </AreaChart>
         </ResponsiveContainer>
