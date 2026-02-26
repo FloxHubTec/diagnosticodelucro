@@ -1,5 +1,8 @@
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, Cell } from "recharts";
 
+const BLUE = "hsl(224, 70%, 40%)";
+const EMERALD = "hsl(142, 70%, 45%)";
+
 const data = [
   { name: "Esforço Comercial", valor: 87 },
   { name: "Resultado Real", valor: 34 },
@@ -28,16 +31,17 @@ export function ComparisonChart() {
           />
           <Tooltip
             contentStyle={{
-              background: "hsl(0,0%,100%)",
-              border: "1px solid hsl(220,13%,91%)",
+              background: "hsl(210, 77%, 12%)",
+              border: "1px solid hsl(210, 40%, 20%)",
               borderRadius: 6,
               fontSize: 11,
+              color: "#e2e8f0",
             }}
             formatter={(v: number) => [`${v}%`]}
           />
           <Bar dataKey="valor" radius={[4, 4, 0, 0]}>
-            <Cell fill="hsl(224,70%,40%)" />
-            <Cell fill="hsl(215,16%,75%)" />
+            <Cell fill={BLUE} />
+            <Cell fill={EMERALD} />
           </Bar>
         </BarChart>
       </ResponsiveContainer>
