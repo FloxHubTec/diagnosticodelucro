@@ -43,11 +43,13 @@ const recoveryData = [
   { name: "Sem 8", taxa: 68 },
 ];
 
-// ── Colors (from design system HSL tokens) ──────────────────────────────────
+// ── Semantic Colors ──────────────────────────────────────────────────────────
 
-const GREEN = "hsl(224, 70%, 40%)";      // --secondary
-const MUTED = "hsl(215, 16%, 55%)";
-const CARD_BG = "hsl(210, 77%, 12%)";    // darker than --primary
+const EMERALD = "hsl(142, 70%, 45%)";    // Sucesso / Ganho
+const AMBER = "hsl(38, 92%, 50%)";       // Alerta / Perda
+const BLUE = "hsl(224, 70%, 40%)";       // Esforço / Processo
+const MUTED = "hsl(215, 16%, 47%)";      // Neutro
+const CARD_BG = "hsl(210, 77%, 12%)";
 const BORDER = "hsl(210, 40%, 20%)";
 const GRID = "hsl(210, 40%, 18%)";
 const AXIS = "hsl(215, 16%, 45%)";
@@ -100,9 +102,9 @@ export function DiagnosticTabs() {
                 Comparação mensal de faturamento com e sem correção de processos
               </p>
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary/15 border border-secondary/30">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg" style={{ backgroundColor: `${AMBER}15`, border: `1px solid ${AMBER}40` }}>
               <span className="text-xs text-primary-foreground/60">Receita Recuperável</span>
-              <span className="text-sm font-bold text-secondary">+R$ {totalRecuperavel}k</span>
+              <span className="text-sm font-bold" style={{ color: AMBER }}>+R$ {totalRecuperavel}k</span>
             </div>
           </div>
           <div className="h-72">
@@ -119,13 +121,13 @@ export function DiagnosticTabs() {
                   ]}
                 />
                 <Bar dataKey="atual" fill={MUTED} radius={[4, 4, 0, 0]} name="atual" />
-                <Bar dataKey="otimizado" fill={GREEN} radius={[4, 4, 0, 0]} name="otimizado" />
+                <Bar dataKey="otimizado" fill={EMERALD} radius={[4, 4, 0, 0]} name="otimizado" />
               </BarChart>
             </ResponsiveContainer>
           </div>
           <div className="flex items-center gap-6 mt-4 justify-center">
             <Legend color={MUTED} label="Cenário Atual" />
-            <Legend color={GREEN} label="Cenário Otimizado" />
+            <Legend color={EMERALD} label="Cenário Otimizado" />
           </div>
         </div>
       </TabsContent>
@@ -158,17 +160,17 @@ export function DiagnosticTabs() {
                   {funnelData.map((entry, index) => (
                     <Cell
                       key={index}
-                      fill={index <= 1 ? GREEN : MUTED}
-                      fillOpacity={1 - index * 0.1}
+                      fill={index <= 1 ? EMERALD : AMBER}
+                      fillOpacity={1 - index * 0.08}
                     />
                   ))}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="mt-4 p-3 rounded-lg bg-secondary/10 border border-secondary/20">
+          <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: `${AMBER}15`, border: `1px solid ${AMBER}30` }}>
             <p className="text-xs text-primary-foreground/70 text-center">
-              <strong className="text-secondary">935 leads perdidos</strong> entre a captação e o fechamento — uma taxa de perda de <strong className="text-secondary">93,5%</strong> no funil atual.
+              <strong style={{ color: AMBER }}>935 leads perdidos</strong> entre a captação e o fechamento — uma taxa de perda de <strong style={{ color: AMBER }}>93,5%</strong> no funil atual.
             </p>
           </div>
         </div>
@@ -186,7 +188,7 @@ export function DiagnosticTabs() {
             </div>
             <div className="flex gap-3">
               <Metric label="Antes" value="12%" muted />
-              <Metric label="Após 8 sem" value="68%" />
+              <Metric label="Após 8 sem" value="68%" color={EMERALD} />
             </div>
           </div>
           <div className="h-72">
@@ -194,8 +196,8 @@ export function DiagnosticTabs() {
               <AreaChart data={recoveryData}>
                 <defs>
                   <linearGradient id="recoveryGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={GREEN} stopOpacity={0.35} />
-                    <stop offset="95%" stopColor={GREEN} stopOpacity={0.02} />
+                    <stop offset="5%" stopColor={EMERALD} stopOpacity={0.35} />
+                    <stop offset="95%" stopColor={EMERALD} stopOpacity={0.02} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke={GRID} vertical={false} />
@@ -208,10 +210,12 @@ export function DiagnosticTabs() {
                 <Area
                   type="monotone"
                   dataKey="taxa"
-                  stroke={GREEN}
+                  stroke={EMERALD}
                   strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   fill="url(#recoveryGrad)"
-                  dot={{ r: 3, fill: GREEN, stroke: CARD_BG, strokeWidth: 2 }}
+                  dot={{ r: 3, fill: EMERALD, stroke: CARD_BG, strokeWidth: 2 }}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -233,11 +237,11 @@ function Legend({ color, label }: { color: string; label: string }) {
   );
 }
 
-function Metric({ label, value, muted }: { label: string; value: string; muted?: boolean }) {
+function Metric({ label, value, muted, color }: { label: string; value: string; muted?: boolean; color?: string }) {
   return (
     <div className="text-center px-3 py-2 rounded-lg" style={{ backgroundColor: `${CARD_BG}`, border: `1px solid ${BORDER}` }}>
       <p className="text-[10px] uppercase tracking-wider text-primary-foreground/40">{label}</p>
-      <p className={`text-lg font-bold ${muted ? "text-primary-foreground/40" : "text-secondary"}`}>{value}</p>
+      <p className={`text-lg font-bold ${muted ? "text-primary-foreground/40" : ""}`} style={color ? { color } : undefined}>{value}</p>
     </div>
   );
 }
