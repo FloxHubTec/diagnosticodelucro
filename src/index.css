@@ -63,6 +63,14 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 224 70% 40%;
+
+    /* Dashboard high-contrast tokens */
+    --dash-positive: 142 76% 55%;
+    --dash-negative: 32 95% 55%;
+    --dash-electric: 217 91% 60%;
+    --dash-muted: 215 16% 65%;
+    --dash-card: 215 28% 12%;
+    --dash-border: 215 20% 20%;
   }
 }
 

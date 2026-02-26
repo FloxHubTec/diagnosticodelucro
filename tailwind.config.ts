@@ -51,6 +51,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        dash: {
+          positive: "hsl(var(--dash-positive))",
+          negative: "hsl(var(--dash-negative))",
+          electric: "hsl(var(--dash-electric))",
+          muted: "hsl(var(--dash-muted))",
+          card: "hsl(var(--dash-card))",
+          border: "hsl(var(--dash-border))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

@@ -23,19 +23,24 @@ const metrics = [
   { label: "Vendas Fechadas", value: "8", delta: "-4", negative: true },
 ];
 
+const POSITIVE = "hsl(142, 76%, 55%)";
+const NEGATIVE = "hsl(32, 95%, 55%)";
+const ELECTRIC = "hsl(217, 91%, 60%)";
+const AXIS_CLR = "hsl(215, 16%, 45%)";
+
 export function HeroDashboard() {
   return (
-    <div className="bg-accent rounded-2xl border border-border p-6 shadow-sm w-full">
+    <div className="bg-dash-card rounded-2xl border border-dash-border p-6 shadow-sm w-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
-          <p className="text-xs font-semibold tracking-widest uppercase text-secondary">
+          <p className="text-xs font-semibold tracking-widest uppercase" style={{ color: POSITIVE }}>
             Painel Estratégico
           </p>
-          <p className="text-sm text-muted-foreground mt-0.5">Operação Comercial — Jan 2025</p>
+          <p className="text-sm text-dash-muted mt-0.5">Operação Comercial — Jan 2025</p>
         </div>
-        <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-background border border-border rounded-full px-3 py-1 text-muted-foreground">
-          <span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block" />
+        <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-primary border border-dash-border rounded-full px-3 py-1 text-dash-muted">
+          <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ backgroundColor: POSITIVE }} />
           Ao vivo
         </span>
       </div>
@@ -43,13 +48,12 @@ export function HeroDashboard() {
       {/* Metrics grid */}
       <div className="grid grid-cols-2 gap-3 mb-5">
         {metrics.map((m) => (
-          <div key={m.label} className="bg-background rounded-lg border border-border p-3">
-            <p className="text-xs text-muted-foreground mb-1">{m.label}</p>
-            <p className="text-xl font-bold text-foreground metric-number">{m.value}</p>
+          <div key={m.label} className="bg-primary rounded-lg border border-dash-border p-3">
+            <p className="text-xs text-dash-muted mb-1">{m.label}</p>
+            <p className="text-xl font-bold text-white metric-number">{m.value}</p>
             <p
-              className={`text-xs font-medium mt-0.5 ${
-                m.negative ? "text-destructive" : "text-secondary"
-              }`}
+              className="text-xs font-medium mt-0.5"
+              style={{ color: m.negative ? NEGATIVE : POSITIVE }}
             >
               {m.delta} vs. mês anterior
             </p>
@@ -58,34 +62,35 @@ export function HeroDashboard() {
       </div>
 
       {/* Chart */}
-      <div className="bg-background rounded-lg border border-border p-4">
-        <p className="text-xs text-muted-foreground mb-3">Tendência de Conversão (%)</p>
+      <div className="bg-primary rounded-lg border border-dash-border p-4">
+        <p className="text-xs text-dash-muted mb-3">Tendência de Conversão (%)</p>
         <ResponsiveContainer width="100%" height={100}>
           <AreaChart data={conversionData} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
             <defs>
-              <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(224,70%,40%)" stopOpacity={0.15} />
-                <stop offset="95%" stopColor="hsl(224,70%,40%)" stopOpacity={0} />
+              <linearGradient id="heroGreenGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={POSITIVE} stopOpacity={0.2} />
+                <stop offset="95%" stopColor={POSITIVE} stopOpacity={0} />
               </linearGradient>
             </defs>
-            <XAxis dataKey="mes" tick={{ fontSize: 10, fill: "hsl(215,16%,47%)" }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fontSize: 10, fill: "hsl(215,16%,47%)" }} axisLine={false} tickLine={false} />
+            <XAxis dataKey="mes" tick={{ fontSize: 10, fill: AXIS_CLR }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 10, fill: AXIS_CLR }} axisLine={false} tickLine={false} />
             <Tooltip
               contentStyle={{
-                background: "hsl(0,0%,100%)",
-                border: "1px solid hsl(220,13%,91%)",
+                background: "#ffffff",
+                border: "1px solid #e2e8f0",
                 borderRadius: 6,
                 fontSize: 11,
+                color: "#1e293b",
               }}
               formatter={(v: number) => [`${v}%`, "Conversão"]}
             />
             <Area
               type="monotone"
               dataKey="valor"
-              stroke="hsl(224,70%,40%)"
+              stroke={POSITIVE}
               strokeWidth={2}
-              fill="url(#blueGrad)"
-              dot={{ r: 3, fill: "hsl(224,70%,40%)", strokeWidth: 0 }}
+              fill="url(#heroGreenGrad)"
+              dot={{ r: 3, fill: POSITIVE, strokeWidth: 0 }}
             />
           </AreaChart>
         </ResponsiveContainer>
