@@ -15,12 +15,12 @@ import {
 // ── Data ────────────────────────────────────────────────────────────────────
 
 const gapData = [
-  { name: "Jan", atual: 120, otimizado: 180 },
-  { name: "Fev", atual: 135, otimizado: 195 },
-  { name: "Mar", atual: 110, otimizado: 200 },
-  { name: "Abr", atual: 145, otimizado: 210 },
-  { name: "Mai", atual: 130, otimizado: 220 },
-  { name: "Jun", atual: 150, otimizado: 240 },
+  { name: "Jan", atual: 8, otimizado: 18 },
+  { name: "Fev", atual: 10, otimizado: 22 },
+  { name: "Mar", atual: 7, otimizado: 20 },
+  { name: "Abr", atual: 12, otimizado: 25 },
+  { name: "Mai", atual: 9, otimizado: 28 },
+  { name: "Jun", atual: 14, otimizado: 35 },
 ];
 
 const funnelData = [
@@ -111,7 +111,7 @@ export function DiagnosticTabs() {
               <BarChart data={gapData} barGap={4}>
                 <CartesianGrid strokeDasharray="3 3" stroke={GRID} vertical={false} />
                 <XAxis dataKey="name" tick={{ fontSize: 12, fill: AXIS }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 12, fill: AXIS }} axisLine={false} tickLine={false} unit="k" />
+                <YAxis tick={{ fontSize: 12, fill: AXIS }} axisLine={false} tickLine={false} />
                 <Tooltip
                   contentStyle={tooltipStyle}
                   formatter={(value: number, name: string) => [
@@ -119,13 +119,13 @@ export function DiagnosticTabs() {
                     name === "atual" ? "Cenário Atual" : "Cenário Otimizado",
                   ]}
                 />
-                <Bar dataKey="atual" fill="rgba(255,255,255,0.3)" radius={[4, 4, 0, 0]} name="atual" />
+                <Bar dataKey="atual" fill="rgba(255,255,255,0.85)" radius={[4, 4, 0, 0]} name="atual" />
                 <Bar dataKey="otimizado" fill={GREEN} radius={[4, 4, 0, 0]} name="otimizado" />
               </BarChart>
             </ResponsiveContainer>
           </div>
           <div className="flex items-center gap-6 mt-4 justify-center">
-            <Legend color="rgba(255,255,255,0.3)" label="Cenário Atual" />
+            <Legend color="rgba(255,255,255,0.85)" label="Cenário Atual" />
             <Legend color={GREEN} label="Cenário Otimizado" />
           </div>
         </div>

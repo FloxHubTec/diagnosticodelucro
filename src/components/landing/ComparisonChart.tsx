@@ -37,7 +37,7 @@ export function ComparisonChart() {
             formatter={(v: number) => [`${v}%`]}
           />
           <Bar dataKey="valor" radius={[4, 4, 0, 0]}>
-            <Cell fill="rgba(255,255,255,0.5)" />
+            <Cell fill="rgba(255,255,255,0.85)" />
             <Cell fill="hsl(152,60%,42%)" />
           </Bar>
         </BarChart>
