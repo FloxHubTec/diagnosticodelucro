@@ -24,12 +24,12 @@ const gapData = [
 ];
 
 const funnelData = [
-  { name: "Leads captados", valor: 1000 },
-  { name: "Atendimento inicial", valor: 680 },
-  { name: "Qualificação", valor: 410 },
-  { name: "Follow-up", valor: 220 },
-  { name: "Proposta enviada", valor: 130 },
-  { name: "Fechamento", valor: 65 },
+  { name: "Leads captados", valor: 320 },
+  { name: "Atendimento inicial", valor: 210 },
+  { name: "Qualificação", valor: 140 },
+  { name: "Follow-up", valor: 95 },
+  { name: "Proposta enviada", valor: 58 },
+  { name: "Fechamento", valor: 34 },
 ];
 
 const recoveryData = [
@@ -169,7 +169,7 @@ export function DiagnosticTabs() {
           </div>
           <div className="mt-4 p-3 rounded-lg bg-secondary/10 border border-secondary/20">
             <p className="text-xs text-white/70 text-center">
-              <strong className="text-orange-400">935 leads perdidos</strong> entre a captação e o fechamento — uma taxa de perda de <strong className="text-orange-400">93,5%</strong> no funil atual.
+              <strong className="text-orange-400">286 leads perdidos</strong> entre a captação e o fechamento — uma taxa de perda de <strong className="text-orange-400">89,4%</strong> no funil atual.
             </p>
           </div>
         </div>
