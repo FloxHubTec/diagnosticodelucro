@@ -150,7 +150,7 @@ export function LeadForm() {
           Analisaremos seu perfil e entraremos em contato em breve para confirmar o agendamento.
         </p>
         <a
-          href="https://calendly.com"
+          href="https://cal.com/lucianadelavec/30min"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-secondary hover:bg-interactive text-secondary-foreground font-semibold px-8 py-4 rounded-md text-sm transition-colors duration-200"
