@@ -6,7 +6,7 @@ import { ComparisonChart } from "@/components/landing/ComparisonChart";
 import { GrowthChart } from "@/components/landing/GrowthChart";
 import { LossFlowchart } from "@/components/landing/LossFlowchart";
 import { GearDifferential } from "@/components/landing/GearDifferential";
-import { VideoEmbed } from "@/components/landing/VideoEmbed";
+
 import { LeadForm } from "@/components/landing/LeadForm";
 import {
   AlertTriangle,
@@ -217,19 +217,21 @@ function DiagnosticTabsSection() {
 
 function LossFlowchartSection() {
   return (
-    <section className="relative max-w-6xl mx-auto px-6 py-24 rounded-2xl overflow-hidden">
+    <section className="relative w-full overflow-hidden">
       <div
         className="absolute inset-0 opacity-30 bg-cover bg-center bg-no-repeat pointer-events-none"
         style={{ backgroundImage: `url(${flowchartBg})` }}
       />
-      <div className="max-w-3xl mx-auto text-center mb-14">
-        <SectionLabel>Mapa de Vazamentos</SectionLabel>
-        <h2 className="heading-lg text-foreground mb-4">Onde as vendas escapam (mesmo com leads chegando)</h2>
-        <p className="body-lg text-muted-foreground prose-max mx-auto">
-          Este é o mapa que a maioria dos gestores nunca viu da própria operação.
-        </p>
+      <div className="relative max-w-6xl mx-auto px-6 py-24">
+        <div className="max-w-3xl mx-auto text-center mb-14">
+          <SectionLabel>Mapa de Vazamentos</SectionLabel>
+          <h2 className="heading-lg text-foreground mb-4">Onde as vendas escapam (mesmo com leads chegando)</h2>
+          <p className="body-lg text-muted-foreground prose-max mx-auto">
+            Este é o mapa que a maioria dos gestores nunca viu da própria operação.
+          </p>
+        </div>
+        <LossFlowchart />
       </div>
-      <LossFlowchart />
     </section>
   );
 }
@@ -433,28 +435,7 @@ function DifferentialSection() {
   );
 }
 
-// ─── Section 9 — VÍDEO ────────────────────────────────────────────────────────
-
-function VideoSection() {
-  return (
-    <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-6 py-24">
-        <div className="max-w-2xl mx-auto text-center mb-10">
-          <SectionLabel>Assista antes de aplicar</SectionLabel>
-          <h2 className="heading-lg text-foreground mb-4">2 minutos que valem a leitura inteira</h2>
-          <p className="body-lg text-muted-foreground prose-max mx-auto">
-            Neste vídeo: o que identifico no Raio X, como é a reunião, o que você recebe ao final e para quem faz
-            sentido.
-          </p>
-        </div>
-        <VideoEmbed />
-        <div className="text-center mt-10">
-          <CtaButton href="#formulario">Aplicar para o Raio X</CtaButton>
-        </div>
-      </div>
-    </section>
-  );
-}
+// (Video section removed)
 
 // ─── Section 10 — GANHOS ──────────────────────────────────────────────────────
 
@@ -671,7 +652,7 @@ const Index = () => {
       <DeliverablesSection />
       <MethodologySection />
       <DifferentialSection />
-      <VideoSection />
+      
       <ResultSection />
       <ForWhomSection />
       <FormSection />
