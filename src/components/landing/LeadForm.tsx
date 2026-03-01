@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { ChevronRight, ChevronLeft, CheckCircle, XCircle } from "lucide-react";
 import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
   DialogContent,
@@ -61,6 +62,7 @@ export function LeadForm() {
   const [form, setForm] = useState<FormData>(initialState);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [showIneligibleDialog, setShowIneligibleDialog] = useState(false);
   const [step, setStep] = useState(0);
 
@@ -117,7 +119,7 @@ export function LeadForm() {
     setStep((s) => Math.max(s - 1, 0));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (form.timeComercial === "Não") {
       setShowIneligibleDialog(true);
@@ -133,7 +135,24 @@ export function LeadForm() {
       setErrors(fieldErrors);
       return;
     }
-    setSubmitted(true);
+
+    setSubmitting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-lead", {
+        body: form,
+      });
+
+      if (error) {
+        console.error("Error sending lead:", error);
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Error:", err);
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -322,9 +341,10 @@ export function LeadForm() {
           ) : (
             <Button
               type="submit"
+              disabled={submitting}
               className="flex-1 bg-secondary hover:bg-interactive text-secondary-foreground font-semibold h-12 text-sm rounded-md gap-2"
             >
-              Enviar e agendar
+              {submitting ? "Enviando..." : "Enviar e agendar"}
               <ChevronRight size={16} />
             </Button>
           )}
