@@ -7,7 +7,7 @@ const data = [
 
 export function ComparisonChart() {
   return (
-    <div className="bg-slate-900 rounded-xl border border-white/10 p-6 max-w-sm mx-auto">
+    <div className="bg-slate-900 rounded-xl border border-white/10 p-4 sm:p-6 max-w-sm mx-auto">
       <p className="text-xs font-semibold tracking-widest uppercase text-secondary mb-4 text-center">
         Diagnóstico de Desempenho
       </p>

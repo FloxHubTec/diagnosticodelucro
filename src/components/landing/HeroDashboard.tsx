@@ -25,7 +25,7 @@ const metrics = [
 
 export function HeroDashboard() {
   return (
-    <div className="bg-slate-900 rounded-2xl border border-white/10 p-6 shadow-sm w-full">
+    <div className="bg-slate-900 rounded-2xl border border-white/10 p-4 sm:p-6 shadow-sm w-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
@@ -45,7 +45,7 @@ export function HeroDashboard() {
         {metrics.map((m) => (
           <div key={m.label} className="bg-slate-950 rounded-lg border border-white/10 p-3">
             <p className="text-xs text-white/60 mb-1">{m.label}</p>
-            <p className="text-xl font-bold text-white metric-number">{m.value}</p>
+            <p className="text-lg sm:text-xl font-bold text-white metric-number">{m.value}</p>
             <p
               className={`text-xs font-medium mt-0.5 ${
                 m.negative ? "text-orange-400" : "text-secondary"
