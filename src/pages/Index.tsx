@@ -70,12 +70,13 @@ function CtaButton({
 function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <span className="text-sm font-bold text-foreground tracking-tight">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-3">
+        <span className="text-xs sm:text-sm font-bold text-foreground tracking-tight leading-tight">
           Raio X <span className="text-secondary">de Oportunidades Perdidas</span>
         </span>
         <CtaButton href="#formulario" size="sm">
-          Solicitar análise
+          <span className="hidden sm:inline">Solicitar análise</span>
+          <span className="sm:hidden">Aplicar</span>
         </CtaButton>
       </div>
     </header>
@@ -87,11 +88,11 @@ function Navbar() {
 function HeroSection() {
   return (
     <section className="bg-primary text-primary-foreground">
-      <div className="max-w-6xl mx-auto px-6 py-24 lg:py-36">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24 lg:py-36">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left */}
           <div>
-            <p className="text-xs font-semibold tracking-widest uppercase text-primary-foreground/40 mb-6">
+            <p className="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-primary-foreground/40 mb-4 sm:mb-6">
               Diagnóstico Estratégico B2B · Análise de Conversão Comercial
             </p>
             <h1 className="heading-xl text-primary-foreground mb-6">
@@ -119,8 +120,8 @@ function HeroSection() {
 
 function BeliefBreakSection() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-24">
-      <div className="max-w-3xl mx-auto text-center mb-14">
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
+      <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
         <SectionLabel>Análise de Causa</SectionLabel>
         <h2 className="heading-lg text-foreground mb-6">O problema não é esforço comercial.</h2>
         <p className="body-lg text-muted-foreground prose-max mx-auto">
@@ -153,13 +154,13 @@ const alerts = [
 function AlertSignalsSection() {
   return (
     <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-6 py-24">
-        <div className="max-w-2xl mx-auto text-center mb-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
+        <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
           <SectionLabel>Sinais de Alerta</SectionLabel>
           <h2 className="heading-lg text-foreground">Sua operação apresenta estes sintomas?</h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl mx-auto mb-8 sm:mb-10">
           {alerts.map(({ icon: Icon, text }) => (
             <div key={text} className="flex items-center gap-4 bg-background border border-border rounded-lg px-5 py-4">
               <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-md bg-accent border border-border">
@@ -188,8 +189,8 @@ function AlertSignalsSection() {
 function DiagnosticTabsSection() {
   return (
     <section className="bg-primary">
-      <div className="max-w-6xl mx-auto px-6 py-24">
-        <div className="max-w-2xl mx-auto text-center mb-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
+        <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
           <p className="text-xs font-semibold tracking-widest uppercase text-primary-foreground/40 mb-4">Painel de Inteligência</p>
           <h2 className="heading-lg text-primary-foreground mb-4">Raio X: seu diagnóstico em tempo real</h2>
           <p className="body-lg text-primary-foreground/65 prose-max mx-auto">
@@ -214,7 +215,7 @@ function LossFlowchartSection() {
         className="absolute inset-0 opacity-30 bg-cover bg-center bg-no-repeat pointer-events-none"
         style={{ backgroundImage: `url(${flowchartBg})` }}
       />
-      <div className="relative max-w-6xl mx-auto px-6 py-24">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
         <div className="max-w-3xl mx-auto text-center mb-14">
           <SectionLabel>Mapa de Vazamentos</SectionLabel>
           <h2 className="heading-lg text-foreground mb-4">Onde as vendas escapam (mesmo com leads chegando)</h2>
@@ -233,9 +234,9 @@ function LossFlowchartSection() {
 function ServicePresentationSection() {
   return (
     <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-6 py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="w-14 h-14 mx-auto mb-8 flex items-center justify-center rounded-xl bg-background border border-border">
+          <div className="w-14 h-14 mx-auto mb-6 sm:mb-8 flex items-center justify-center rounded-xl bg-background border border-border">
             <Radar size={26} className="text-secondary" />
           </div>
           <SectionLabel>O Serviço</SectionLabel>
@@ -294,13 +295,13 @@ const deliverables = [
 
 function DeliverablesSection() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-24">
-      <div className="max-w-2xl mx-auto text-center mb-12">
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
+      <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
         <SectionLabel>O que o Diagnóstico Entrega</SectionLabel>
         <h2 className="heading-lg text-foreground">O que você recebe</h2>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {deliverables.map(({ icon: Icon, title, desc }) => (
           <div
             key={title}
@@ -351,8 +352,8 @@ const steps = [
 function MethodologySection() {
   return (
     <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-6 py-24">
-        <div className="max-w-2xl mx-auto text-center mb-14">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
+        <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-14">
           <SectionLabel>Metodologia</SectionLabel>
           <h2 className="heading-lg text-foreground">Como funciona o processo</h2>
         </div>
@@ -413,8 +414,8 @@ function MethodologySection() {
 
 function DifferentialSection() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-24">
-      <div className="max-w-2xl mx-auto text-center mb-12">
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
+      <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
         <SectionLabel>Diferencial</SectionLabel>
         <h2 className="heading-lg text-foreground mb-6">Você não recebe teoria. Você recebe correção.</h2>
         <p className="body-lg text-muted-foreground prose-max mx-auto">
@@ -433,8 +434,8 @@ function DifferentialSection() {
 
 function ResultSection() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-24">
-      <div className="max-w-2xl mx-auto text-center mb-12">
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
+      <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
         <SectionLabel>O que Você Ganha</SectionLabel>
         <h2 className="heading-lg text-foreground mb-4">O que você ganha com isso</h2>
         <p className="body-lg text-muted-foreground prose-max mx-auto mb-4">
@@ -466,9 +467,9 @@ const forWhom = [
 function ForWhomSection() {
   return (
     <section className="bg-accent">
-      <div className="max-w-6xl mx-auto px-6 py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
         <div className="max-w-3xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
             <div>
               <SectionLabel>Perfil Ideal</SectionLabel>
               <h2 className="heading-lg text-foreground mb-4">Para quem este serviço é indicado</h2>
@@ -507,8 +508,8 @@ function ForWhomSection() {
 
 function FormSection() {
   return (
-    <section id="formulario" className="max-w-6xl mx-auto px-6 py-24">
-      <div className="max-w-2xl mx-auto text-center mb-12">
+    <section id="formulario" className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
+      <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
         <SectionLabel>Aplicação</SectionLabel>
         <h2 className="heading-lg text-foreground mb-4">Aplicação para a análise estratégica</h2>
         <p className="body-lg text-muted-foreground prose-max mx-auto">
@@ -525,7 +526,7 @@ function FormSection() {
 function CTASection() {
   return (
     <section className="bg-primary">
-      <div className="max-w-6xl mx-auto px-6 py-24 text-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24 text-center">
         <SectionLabel light>Próximo Passo</SectionLabel>
         <h2 className="heading-lg text-primary-foreground mb-6">Pronta para parar de perder oportunidades?</h2>
         <p className="body-lg text-primary-foreground/65 prose-max mx-auto mb-10">
@@ -542,8 +543,8 @@ function CTASection() {
 function Footer() {
   return (
     <footer className="border-t border-border bg-background">
-      <div className="max-w-6xl mx-auto px-6 py-14">
-        <div className="grid md:grid-cols-3 gap-10 mb-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-8 sm:mb-12">
           {/* Brand */}
           <div>
             <p className="text-sm font-bold text-foreground mb-2">

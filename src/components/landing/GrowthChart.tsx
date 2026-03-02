@@ -11,7 +11,7 @@ const beforeData = [
 
 export function GrowthChart() {
   return (
-    <div className="bg-slate-900 rounded-xl border border-white/10 p-6 max-w-lg mx-auto">
+    <div className="bg-slate-900 rounded-xl border border-white/10 p-4 sm:p-6 max-w-lg mx-auto">
       <p className="text-xs font-semibold tracking-widest uppercase text-secondary mb-1 text-center">
         Comparativo de Performance
       </p>

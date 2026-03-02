@@ -70,30 +70,30 @@ export function DiagnosticTabs() {
 
   return (
     <Tabs defaultValue="gap" className="w-full max-w-4xl mx-auto">
-      <TabsList className="w-full grid grid-cols-3 h-12 rounded-lg bg-primary/30 border border-primary-foreground/10">
+      <TabsList className="w-full grid grid-cols-3 h-auto sm:h-12 rounded-lg bg-primary/30 border border-primary-foreground/10 p-1">
         <TabsTrigger
           value="gap"
-          className="text-xs sm:text-sm font-semibold text-white/60 data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-none rounded-md"
+          className="text-[10px] sm:text-sm font-semibold text-white/60 data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-none rounded-md px-2 py-2 sm:py-2.5 leading-tight"
         >
           Gap de Oportunidade
         </TabsTrigger>
         <TabsTrigger
           value="funnel"
-          className="text-xs sm:text-sm font-semibold text-white/60 data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-none rounded-md"
+          className="text-[10px] sm:text-sm font-semibold text-white/60 data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-none rounded-md px-2 py-2 sm:py-2.5 leading-tight"
         >
           Vazamentos no Funil
         </TabsTrigger>
         <TabsTrigger
           value="recovery"
-          className="text-xs sm:text-sm font-semibold text-white/60 data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-none rounded-md"
+          className="text-[10px] sm:text-sm font-semibold text-white/60 data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-none rounded-md px-2 py-2 sm:py-2.5 leading-tight"
         >
-          Onboarding & Recuperação
+          Recuperação
         </TabsTrigger>
       </TabsList>
 
       {/* ── Gap de Oportunidade ──────────────────────────────────────── */}
       <TabsContent value="gap" className="mt-6">
-        <div className="rounded-xl p-6" style={{ backgroundColor: CARD_BG, border: `1px solid ${BORDER}` }}>
+        <div className="rounded-xl p-4 sm:p-6" style={{ backgroundColor: CARD_BG, border: `1px solid ${BORDER}` }}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <div>
               <h3 className="text-base font-semibold text-white">Cenário Atual vs Cenário Otimizado</h3>
@@ -106,7 +106,7 @@ export function DiagnosticTabs() {
               <span className="text-sm font-bold text-secondary">+R$ {totalRecuperavel}k</span>
             </div>
           </div>
-          <div className="h-72">
+          <div className="h-52 sm:h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={gapData} barGap={4}>
                 <CartesianGrid strokeDasharray="3 3" stroke={GRID} vertical={false} />
@@ -133,23 +133,23 @@ export function DiagnosticTabs() {
 
       {/* ── Vazamentos no Funil ──────────────────────────────────────── */}
       <TabsContent value="funnel" className="mt-6">
-        <div className="rounded-xl p-6" style={{ backgroundColor: CARD_BG, border: `1px solid ${BORDER}` }}>
+        <div className="rounded-xl p-4 sm:p-6" style={{ backgroundColor: CARD_BG, border: `1px solid ${BORDER}` }}>
           <h3 className="text-base font-semibold text-white mb-1">Onde os leads são perdidos</h3>
           <p className="text-sm text-white/50 mb-6">
             Funil de conversão com pontos de vazamento em cada etapa do processo comercial
           </p>
-          <div className="h-80">
+          <div className="h-64 sm:h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={funnelData} layout="vertical" margin={{ left: 10 }}>
+              <BarChart data={funnelData} layout="vertical" margin={{ left: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke={GRID} horizontal={false} />
-                <XAxis type="number" tick={{ fontSize: 12, fill: AXIS }} axisLine={false} tickLine={false} />
+                <XAxis type="number" tick={{ fontSize: 11, fill: AXIS }} axisLine={false} tickLine={false} />
                 <YAxis
                   type="category"
                   dataKey="name"
-                  tick={{ fontSize: 11, fill: AXIS }}
+                  tick={{ fontSize: 10, fill: AXIS }}
                   axisLine={false}
                   tickLine={false}
-                  width={130}
+                  width={100}
                 />
                 <Tooltip
                   contentStyle={tooltipStyle}
@@ -177,7 +177,7 @@ export function DiagnosticTabs() {
 
       {/* ── Onboarding & Recuperação ─────────────────────────────────── */}
       <TabsContent value="recovery" className="mt-6">
-        <div className="rounded-xl p-6" style={{ backgroundColor: CARD_BG, border: `1px solid ${BORDER}` }}>
+        <div className="rounded-xl p-4 sm:p-6" style={{ backgroundColor: CARD_BG, border: `1px solid ${BORDER}` }}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <div>
               <h3 className="text-base font-semibold text-white">Evolução da Taxa de Conversão</h3>
@@ -190,7 +190,7 @@ export function DiagnosticTabs() {
               <Metric label="Após 8 sem" value="68%" />
             </div>
           </div>
-          <div className="h-72">
+          <div className="h-52 sm:h-72">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={recoveryData}>
                 <defs>
